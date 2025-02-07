@@ -20,9 +20,12 @@ This route accepts a `POST` request with the user's message and an optional mode
 
 #### Usage:
 **cURL Example**:
+```
 curl -X POST https://free-ai-api-z7vq.onrender.com/chat -H "Content-Type: application/json" -d "{\"message\": \"Bye, AI!\", \"model\": \"gpt-4o-mini\"}"
+```
 
 **JavaScript Example**:
+```javascript
 function sendMessage() {
     const message = document.getElementById('message').value;
     const responseElement = document.getElementById('response');
@@ -53,3 +56,4 @@ function sendMessage() {
         }
     });
 }
+```
