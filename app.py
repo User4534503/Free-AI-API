@@ -3,7 +3,7 @@ import warnings
 import sys
 import platform
 import os
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, redirect
 from g4f.client import Client
 from flask_cors import CORS
 
@@ -30,15 +30,21 @@ CORS(app)
 # Create an instance of the client.
 client = Client()
 
+# Route for '/'
+@app.route('/')
+def home():
+    return redirect("https://github.com/User4534503/Free-AI-API", code=302)
+
 @app.route('/chat', methods=['POST'])
 def chat():
     """API Endpoint for Chat Completions"""
     try:
         data = request.get_json()
         user_message = data.get("message", "Hello")
+        model = data.get("model", "gpt-4o-mini")  # Use model from the request, default to "gpt-4o-mini" if not provided
 
         response = client.chat.completions.create(
-            model="gpt-4o-mini",
+            model=model,
             messages=[{"role": "user", "content": user_message}],
             web_search=False
         )
