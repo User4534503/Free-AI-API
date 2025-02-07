@@ -18,7 +18,7 @@ This route redirects users to this [GitHub page](https://github.com/User4534503/
 ### `/chat` (POST)
 This route accepts a `POST` request with the user's message and an optional model specification.
 
-#### Usage:
+## Usage:
 **cURL Example**:
 ```
 curl -X POST https://free-ai-api-z7vq.onrender.com/chat -H "Content-Type: application/json" -d "{\"message\": \"Bye, AI!\", \"model\": \"gpt-4o-mini\"}"
