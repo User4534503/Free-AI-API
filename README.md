@@ -26,33 +26,27 @@ curl -X POST https://free-ai-api-z7vq.onrender.com/chat -H "Content-Type: applic
 
 **JavaScript Example**:
 ```javascript
-function sendMessage() {
-    const message = document.getElementById('message').value;
-    const responseElement = document.getElementById('response');
-    
+function sendMessage(message, model) {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 7000);  // Timeout after 7 seconds
+    const timeoutId = setTimeout(() => controller.abort(), 7000); // Timeout after 7 seconds
 
     fetch('https://free-ai-api-z7vq.onrender.com/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            message: message,
-            model: 'gpt-4o-mini'
-        }),
+        body: JSON.stringify({ message, model }),
         signal: controller.signal
     })
     .then(response => response.json())
     .then(data => {
-        clearTimeout(timeoutId);  // Clear timeout after successful response
-        responseElement.textContent = data.response || "No response received";
+        clearTimeout(timeoutId); // Clear timeout after successful response
+        document.body.innerText += data.response || "No response received";
     })
     .catch(error => {
         if (error.name === 'AbortError') {
-            sendMessage();  // Retry the request
+            sendMessage(); // Retry the request on timeout
         } else {
             clearTimeout(timeoutId);
-            responseElement.textContent = "";  // Do not show error message
+            document.body.innerText += ""; // Suppress error messages in UI
         }
     });
 }
