@@ -30,6 +30,10 @@ CORS(app)
 # Create an instance of the client.
 client = Client()
 
+@app.route('/ping', methods=['GET'])
+def ping():
+    return jsonify({"status": "ok"}), 200
+
 # Route for '/'
 @app.route('/')
 def home():
